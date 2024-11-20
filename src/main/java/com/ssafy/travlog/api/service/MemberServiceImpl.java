@@ -2,7 +2,7 @@ package com.ssafy.travlog.api.service;
 
 import com.ssafy.travlog.api.dto.LoginRequest;
 import com.ssafy.travlog.api.dto.Member;
-import com.ssafy.travlog.api.dto.SignupDto;
+import com.ssafy.travlog.api.dto.SignupRequest;
 import com.ssafy.travlog.api.mapper.MemberMapper;
 import com.ssafy.travlog.api.model.MemberModel;
 import lombok.RequiredArgsConstructor;
@@ -44,11 +44,11 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public int signup(SignupDto signupDto) {
+    public int signup(SignupRequest signupRequest) {
         MemberModel memberModel = new MemberModel();
-        memberModel.setLogin_id(signupDto.getLoginId());
-        memberModel.setHashed_password(passwordEncoder.encode(signupDto.getPassword()));
-        memberModel.setPublic_id(signupDto.getPublicId());
+        memberModel.setLogin_id(signupRequest.getLoginId());
+        memberModel.setHashed_password(passwordEncoder.encode(signupRequest.getPassword()));
+        memberModel.setPublic_id(signupRequest.getPublicId());
         return memberMapper.insertMember(memberModel);
     }
 }

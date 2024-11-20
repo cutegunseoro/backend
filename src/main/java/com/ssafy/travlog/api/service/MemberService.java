@@ -2,7 +2,7 @@ package com.ssafy.travlog.api.service;
 
 import com.ssafy.travlog.api.dto.LoginRequest;
 import com.ssafy.travlog.api.dto.Member;
-import com.ssafy.travlog.api.dto.SignupDto;
+import com.ssafy.travlog.api.dto.SignupRequest;
 
 public interface MemberService {
 
@@ -14,5 +14,5 @@ public interface MemberService {
 
     Member login(LoginRequest loginRequest);
 
-    int signup(SignupDto signupDto);
+    int signup(SignupRequest signupRequest);
 }
