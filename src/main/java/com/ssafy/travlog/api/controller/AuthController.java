@@ -30,10 +30,10 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(@ModelAttribute LoginRequest loginRequest) {
-        Member member = memberService.login(loginRequest);
-        if (member != null) {
-            String accessToken = jwtUtil.createAccessToken(member.getPublicId());
-            return ResponseEntity.ok(new LoginResponse(accessToken, member));
+        PublicMemberInfo publicMemberInfo = memberService.login(loginRequest);
+        if (publicMemberInfo != null) {
+            String accessToken = jwtUtil.createAccessToken(publicMemberInfo.getPublicId());
+            return ResponseEntity.ok(new LoginResponse(accessToken, publicMemberInfo));
         } else {
             return ResponseEntity.badRequest().body(null);
         }

@@ -8,5 +8,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MemberInfoResponse {
-    private Member member;
+    private PublicMemberInfo publicMemberInfo;
 }
