@@ -1,10 +1,12 @@
 package com.ssafy.travlog.api.controller;
 
 import com.ssafy.travlog.api.dto.LoginRequest;
+import com.ssafy.travlog.api.dto.LoginResponse;
 import com.ssafy.travlog.api.dto.MemberDto;
 import com.ssafy.travlog.api.dto.SignupDto;
 import com.ssafy.travlog.api.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,14 +18,24 @@ import org.springframework.web.bind.annotation.RestController;
 public class MemberController {
     private final MemberService memberService;
 
-    @PostMapping("/login")
-    public MemberDto login(@ModelAttribute
-                           LoginRequest loginRequest) {
-        return memberService.login(loginRequest);
+    @PostMapping("/signup")
+    public ResponseEntity<String> signup(@ModelAttribute SignupDto signupDto) {
+        int result = memberService.signup(signupDto);
+
+        if (result == 1) {
+            return ResponseEntity.ok("success");
+        } else {
+            return ResponseEntity.badRequest().body("fail");
+        }
     }
 
-    @PostMapping("/signup")
-    public int signup(@ModelAttribute SignupDto signupDto) {
-        return memberService.signup(signupDto);
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponse> login(@ModelAttribute LoginRequest loginRequest) {
+        MemberDto member = memberService.login(loginRequest);
+        if (member != null) {
+            return ResponseEntity.ok(new LoginResponse("accessToken", member));
+        } else {
+            return ResponseEntity.badRequest().body(null);
+        }
     }
 }
