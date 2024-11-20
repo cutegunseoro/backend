@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/members")
+@RequestMapping("/auth")
 @RequiredArgsConstructor
-public class MemberController {
+public class AuthController {
     private final MemberService memberService;
 
     @PostMapping("/signup")

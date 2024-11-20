@@ -24,7 +24,7 @@ public class SecurityConfiguration {
                     csrf.disable();
                 })
                 .authorizeHttpRequests((authorize) -> {
-                    authorize.requestMatchers("/members/signup", "/members/login").permitAll();
+                    authorize.requestMatchers("/auth/*").permitAll();
                     authorize.anyRequest().authenticated();
                 })
                 .sessionManagement((session) -> {
