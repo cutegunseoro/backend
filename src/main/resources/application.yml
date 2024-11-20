@@ -23,3 +23,8 @@ spring:
 mybatis:
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: com.ssafy.travlog.api.model
+
+# JWT
+jwt:
+  secret: ${JWT_SECRET}
+  access_token_expiration: 86400000 # 1 day
