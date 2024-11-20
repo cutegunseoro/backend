@@ -2,7 +2,7 @@ package com.ssafy.travlog.api.controller;
 
 import com.ssafy.travlog.api.dto.LoginRequest;
 import com.ssafy.travlog.api.dto.LoginResponse;
-import com.ssafy.travlog.api.dto.MemberDto;
+import com.ssafy.travlog.api.dto.Member;
 import com.ssafy.travlog.api.dto.SignupDto;
 import com.ssafy.travlog.api.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -31,7 +31,7 @@ public class MemberController {
 
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(@ModelAttribute LoginRequest loginRequest) {
-        MemberDto member = memberService.login(loginRequest);
+        Member member = memberService.login(loginRequest);
         if (member != null) {
             return ResponseEntity.ok(new LoginResponse("accessToken", member));
         } else {
