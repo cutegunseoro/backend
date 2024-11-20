@@ -2,9 +2,26 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.ssafy.travlog.api.mapper.MemberMapper">
-    <select id="selectMember" resultType="MemberModel">
+    <select id="selectMemberByMemberId" resultType="MemberModel">
         SELECT *
         FROM member
         WHERE member_id = #{member_id}
     </select>
+
+    <select id="selectMemberByLoginId" resultType="MemberModel">
+        SELECT *
+        FROM member
+        WHERE login_id = #{login_id}
+    </select>
+
+    <select id="selectMemberByPublicId" resultType="MemberModel">
+        SELECT *
+        FROM member
+        WHERE public_id = #{public_id}
+    </select>
+
+    <insert id="insertMember" parameterType="MemberModel">
+        INSERT INTO member (login_id, hashed_password, public_id)
+        VALUES (#{login_id}, #{hashed_password}, #{public_id})
+    </insert>
 </mapper>
