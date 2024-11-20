@@ -25,6 +25,8 @@ public class SecurityConfiguration {
                 })
                 .authorizeHttpRequests((authorize) -> {
                     authorize.requestMatchers("/auth/*").permitAll();
+                    authorize.requestMatchers("/members/{publicId}").permitAll()
+                            .requestMatchers("/members/me").denyAll();
                     authorize.anyRequest().authenticated();
                 })
                 .sessionManagement((session) -> {
