@@ -19,26 +19,26 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public MemberInfo getMemberByMemberId(long memberId) {
         MemberModel memberModel = memberMapper.selectMemberByMemberId(memberId);
-        return new MemberInfo(memberModel.getPublic_id(), memberModel.getDisplay_name(), memberModel.getBio());
+        return new MemberInfo(memberModel.getPublicId(), memberModel.getDisplayName(), memberModel.getBio());
     }
 
     @Override
     public MemberInfo getMemberByLoginId(String loginId) {
         MemberModel memberModel = memberMapper.selectMemberByLoginId(loginId);
-        return new MemberInfo(memberModel.getPublic_id(), memberModel.getDisplay_name(), memberModel.getBio());
+        return new MemberInfo(memberModel.getPublicId(), memberModel.getDisplayName(), memberModel.getBio());
     }
 
     @Override
     public MemberInfo getMemberByPublicId(String publicId) {
         MemberModel memberModel = memberMapper.selectMemberByPublicId(publicId);
-        return new MemberInfo(memberModel.getPublic_id(), memberModel.getDisplay_name(), memberModel.getBio());
+        return new MemberInfo(memberModel.getPublicId(), memberModel.getDisplayName(), memberModel.getBio());
     }
 
     @Override
     public MemberInfo login(LoginRequest loginRequest) {
         MemberModel memberModel = memberMapper.selectMemberByLoginId(loginRequest.getLoginId());
-        if (passwordEncoder.matches(loginRequest.getPassword(), memberModel.getHashed_password())) {
-            return new MemberInfo(memberModel.getPublic_id(), memberModel.getDisplay_name(), memberModel.getBio());
+        if (passwordEncoder.matches(loginRequest.getPassword(), memberModel.getHashedPassword())) {
+            return new MemberInfo(memberModel.getPublicId(), memberModel.getDisplayName(), memberModel.getBio());
         }
         return null;
     }
@@ -46,9 +46,9 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public int signup(SignupRequest signupRequest) {
         MemberModel memberModel = new MemberModel();
-        memberModel.setLogin_id(signupRequest.getLoginId());
-        memberModel.setHashed_password(passwordEncoder.encode(signupRequest.getPassword()));
-        memberModel.setPublic_id(signupRequest.getPublicId());
+        memberModel.setLoginId(signupRequest.getLoginId());
+        memberModel.setHashedPassword(passwordEncoder.encode(signupRequest.getPassword()));
+        memberModel.setPublicId(signupRequest.getPublicId());
         return memberMapper.insertMember(memberModel);
     }
 }

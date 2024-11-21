@@ -10,11 +10,11 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MemberModel {
-    private Long member_id;
-    private String login_id;
-    private String hashed_password;
-    private String public_id;
-    private String display_name;
+    private Long memberId;
+    private String loginId;
+    private String hashedPassword;
+    private String publicId;
+    private String displayName;
     private String bio;
-    private LocalDateTime created_at;
+    private LocalDateTime createdAt;
 }
