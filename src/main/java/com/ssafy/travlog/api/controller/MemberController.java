@@ -26,4 +26,14 @@ public class MemberController {
         }
         return ResponseEntity.ok(new MemberInfoResponse(memberInfo));
     }
+
+    @GetMapping("/{publicId}/videos")
+    public ResponseEntity<MemberInfoResponse> getMemberVideos(@PathVariable String publicId) {
+//        MemberInfo memberInfo = memberService.getMemberByPublicId(publicId);
+//        if (memberInfo == null) {
+//            return ResponseEntity.notFound().build();
+//        }
+//        return ResponseEntity.ok(new MemberInfoResponse(memberInfo));
+        return null;
+    }
 }
