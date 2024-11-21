@@ -1,4 +1,4 @@
-package com.ssafy.travlog.api.dto;
+package com.ssafy.travlog.api.dto.auth;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,6 +7,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class MemberInfoResponse {
-    private MemberInfo memberInfo;
+public class SignupResponse {
+    private String message;
 }

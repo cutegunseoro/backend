@@ -1,8 +1,8 @@
 package com.ssafy.travlog.api.service;
 
-import com.ssafy.travlog.api.dto.LoginRequest;
-import com.ssafy.travlog.api.dto.MemberInfo;
-import com.ssafy.travlog.api.dto.SignupRequest;
+import com.ssafy.travlog.api.dto.auth.LoginRequest;
+import com.ssafy.travlog.api.dto.auth.SignupRequest;
+import com.ssafy.travlog.api.dto.member.MemberInfo;
 import com.ssafy.travlog.api.mapper.MemberMapper;
 import com.ssafy.travlog.api.model.MemberModel;
 import lombok.RequiredArgsConstructor;

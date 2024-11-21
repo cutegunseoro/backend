@@ -1,4 +1,4 @@
-package com.ssafy.travlog.api.dto;
+package com.ssafy.travlog.api.dto.member;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,8 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class SignupRequest {
-    private String loginId;
-    private String password;
+public class MemberInfo {
     private String publicId;
+    private String displayName;
+    private String bio;
 }

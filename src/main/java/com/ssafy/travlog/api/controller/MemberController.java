@@ -1,7 +1,7 @@
 package com.ssafy.travlog.api.controller;
 
-import com.ssafy.travlog.api.dto.MemberInfo;
-import com.ssafy.travlog.api.dto.MemberInfoResponse;
+import com.ssafy.travlog.api.dto.member.MemberInfo;
+import com.ssafy.travlog.api.dto.member.MemberInfoResponse;
 import com.ssafy.travlog.api.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

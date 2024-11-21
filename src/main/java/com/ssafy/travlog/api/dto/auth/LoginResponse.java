@@ -1,5 +1,6 @@
-package com.ssafy.travlog.api.dto;
+package com.ssafy.travlog.api.dto.auth;
 
+import com.ssafy.travlog.api.dto.member.MemberInfo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

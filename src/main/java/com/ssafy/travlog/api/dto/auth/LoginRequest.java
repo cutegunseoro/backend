@@ -1,4 +1,4 @@
-package com.ssafy.travlog.api.dto;
+package com.ssafy.travlog.api.dto.auth;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

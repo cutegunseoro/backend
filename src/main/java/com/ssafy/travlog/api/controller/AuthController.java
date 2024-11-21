@@ -1,6 +1,10 @@
 package com.ssafy.travlog.api.controller;
 
-import com.ssafy.travlog.api.dto.*;
+import com.ssafy.travlog.api.dto.auth.LoginRequest;
+import com.ssafy.travlog.api.dto.auth.LoginResponse;
+import com.ssafy.travlog.api.dto.auth.SignupRequest;
+import com.ssafy.travlog.api.dto.auth.SignupResponse;
+import com.ssafy.travlog.api.dto.member.MemberInfo;
 import com.ssafy.travlog.api.service.MemberService;
 import com.ssafy.travlog.api.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
