@@ -1,7 +1,7 @@
 package com.ssafy.travlog.api.service;
 
 import com.ssafy.travlog.api.dto.LoginRequest;
-import com.ssafy.travlog.api.dto.PublicMemberInfo;
+import com.ssafy.travlog.api.dto.MemberInfo;
 import com.ssafy.travlog.api.dto.SignupRequest;
 import com.ssafy.travlog.api.mapper.MemberMapper;
 import com.ssafy.travlog.api.model.MemberModel;
@@ -17,28 +17,28 @@ public class MemberServiceImpl implements MemberService {
     private final MemberMapper memberMapper;
 
     @Override
-    public PublicMemberInfo getMemberByMemberId(long memberId) {
+    public MemberInfo getMemberByMemberId(long memberId) {
         MemberModel memberModel = memberMapper.selectMemberByMemberId(memberId);
-        return new PublicMemberInfo(memberModel.getPublic_id(), memberModel.getDisplay_name(), memberModel.getBio());
+        return new MemberInfo(memberModel.getPublic_id(), memberModel.getDisplay_name(), memberModel.getBio());
     }
 
     @Override
-    public PublicMemberInfo getMemberByLoginId(String loginId) {
+    public MemberInfo getMemberByLoginId(String loginId) {
         MemberModel memberModel = memberMapper.selectMemberByLoginId(loginId);
-        return new PublicMemberInfo(memberModel.getPublic_id(), memberModel.getDisplay_name(), memberModel.getBio());
+        return new MemberInfo(memberModel.getPublic_id(), memberModel.getDisplay_name(), memberModel.getBio());
     }
 
     @Override
-    public PublicMemberInfo getMemberByPublicId(String publicId) {
+    public MemberInfo getMemberByPublicId(String publicId) {
         MemberModel memberModel = memberMapper.selectMemberByPublicId(publicId);
-        return new PublicMemberInfo(memberModel.getPublic_id(), memberModel.getDisplay_name(), memberModel.getBio());
+        return new MemberInfo(memberModel.getPublic_id(), memberModel.getDisplay_name(), memberModel.getBio());
     }
 
     @Override
-    public PublicMemberInfo login(LoginRequest loginRequest) {
+    public MemberInfo login(LoginRequest loginRequest) {
         MemberModel memberModel = memberMapper.selectMemberByLoginId(loginRequest.getLoginId());
         if (passwordEncoder.matches(loginRequest.getPassword(), memberModel.getHashed_password())) {
-            return new PublicMemberInfo(memberModel.getPublic_id(), memberModel.getDisplay_name(), memberModel.getBio());
+            return new MemberInfo(memberModel.getPublic_id(), memberModel.getDisplay_name(), memberModel.getBio());
         }
         return null;
     }

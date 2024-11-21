@@ -1,7 +1,7 @@
 package com.ssafy.travlog.api.controller;
 
+import com.ssafy.travlog.api.dto.MemberInfo;
 import com.ssafy.travlog.api.dto.MemberInfoResponse;
-import com.ssafy.travlog.api.dto.PublicMemberInfo;
 import com.ssafy.travlog.api.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -20,21 +20,21 @@ public class MemberController {
 
     @GetMapping("/{publicId}")
     public ResponseEntity<MemberInfoResponse> getUserInfo(@PathVariable String publicId) {
-        PublicMemberInfo publicMemberInfo = memberService.getMemberByPublicId(publicId);
-        if (publicMemberInfo == null) {
+        MemberInfo memberInfo = memberService.getMemberByPublicId(publicId);
+        if (memberInfo == null) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(new MemberInfoResponse(publicMemberInfo));
+        return ResponseEntity.ok(new MemberInfoResponse(memberInfo));
     }
 
     @GetMapping("/me")
     public ResponseEntity<MemberInfoResponse> getMyInfo() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String publicId = authentication.getName();
-        PublicMemberInfo publicMemberInfo = memberService.getMemberByPublicId(publicId);
-        if (publicMemberInfo == null) {
+        MemberInfo memberInfo = memberService.getMemberByPublicId(publicId);
+        if (memberInfo == null) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(new MemberInfoResponse(publicMemberInfo));
+        return ResponseEntity.ok(new MemberInfoResponse(memberInfo));
     }
 }

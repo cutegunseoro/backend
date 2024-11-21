@@ -1,18 +1,18 @@
 package com.ssafy.travlog.api.service;
 
 import com.ssafy.travlog.api.dto.LoginRequest;
-import com.ssafy.travlog.api.dto.PublicMemberInfo;
+import com.ssafy.travlog.api.dto.MemberInfo;
 import com.ssafy.travlog.api.dto.SignupRequest;
 
 public interface MemberService {
 
-    PublicMemberInfo getMemberByMemberId(long memberId);
+    MemberInfo getMemberByMemberId(long memberId);
 
-    PublicMemberInfo getMemberByLoginId(String loginId);
+    MemberInfo getMemberByLoginId(String loginId);
 
-    PublicMemberInfo getMemberByPublicId(String publicId);
+    MemberInfo getMemberByPublicId(String publicId);
 
-    PublicMemberInfo login(LoginRequest loginRequest);
+    MemberInfo login(LoginRequest loginRequest);
 
     int signup(SignupRequest signupRequest);
 }

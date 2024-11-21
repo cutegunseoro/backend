@@ -5,8 +5,8 @@ import com.ssafy.travlog.api.service.MemberService;
 import com.ssafy.travlog.api.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,7 +18,7 @@ public class AuthController {
     private final MemberService memberService;
 
     @PostMapping("/signup")
-    public ResponseEntity<SignupResponse> signup(@ModelAttribute SignupRequest signupRequest) {
+    public ResponseEntity<SignupResponse> signup(@RequestBody SignupRequest signupRequest) {
         int result = memberService.signup(signupRequest);
 
         if (result == 1) {
@@ -29,11 +29,11 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<LoginResponse> login(@ModelAttribute LoginRequest loginRequest) {
-        PublicMemberInfo publicMemberInfo = memberService.login(loginRequest);
-        if (publicMemberInfo != null) {
-            String accessToken = jwtUtil.createAccessToken(publicMemberInfo.getPublicId());
-            return ResponseEntity.ok(new LoginResponse(accessToken, publicMemberInfo));
+    public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest loginRequest) {
+        MemberInfo memberInfo = memberService.login(loginRequest);
+        if (memberInfo != null) {
+            String accessToken = jwtUtil.createAccessToken(memberInfo.getPublicId());
+            return ResponseEntity.ok(new LoginResponse(accessToken, memberInfo));
         } else {
             return ResponseEntity.badRequest().body(null);
         }
