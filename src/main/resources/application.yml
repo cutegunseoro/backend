@@ -28,3 +28,8 @@ mybatis:
 jwt:
   secret: ${JWT_SECRET}
   access_token_expiration: 86400000 # 1 day
+
+# logging
+logging:
+  level:
+    com.ssafy.travlog: debug
