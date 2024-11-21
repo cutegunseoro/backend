@@ -5,20 +5,20 @@ import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import java.security.Key;
+import javax.crypto.SecretKey;
 import java.util.Date;
 import java.util.UUID;
 
 @Component
 public class JwtUtil {
-    private final Key key;
+    private final SecretKey key;
     private final long accessTokenExpiration;
 
     public JwtUtil(
-            @Value("${jwt.secret}") String secretKey,
+            @Value("${jwt.secret}") String secret,
             @Value("${jwt.access_token_expiration}") long accessTokenExpiration
     ) {
-        this.key = Keys.hmacShaKeyFor(secretKey.getBytes());
+        this.key = Keys.hmacShaKeyFor(secret.getBytes());
         this.accessTokenExpiration = accessTokenExpiration;
     }
 
