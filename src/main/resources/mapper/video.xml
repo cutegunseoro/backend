@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.travlog.api.mapper.VideoMapper">
+    <insert id="insertVideo" parameterType="VideoModel">
+        INSERT INTO video (login_id, hashed_password, public_id)
+        VALUES (#{login_id}, #{hashed_password}, #{public_id})
+    </insert>
+
+    <select id="selectVideoByVideoId" resultType="VideoModel">
+        SELECT *
+        FROM video
+        WHERE video_id = #{video_id}
+    </select>
+
+    <select id="selectVideosByTravelId" resultType="VideoModel">
+        SELECT *
+        FROM video
+        WHERE travel_id = #{travel_id}
+    </select>
+
+    <select id="selectVideosByMemberId" resultType="VideoModel">
+        SELECT *
+        FROM video
+        WHERE member_id = #{member_id}
+    </select>
+
+    <select id="searchVideosByCoordinatesWithinDistance" parameterType="map" resultType="Location">
+        SELECT *
+        FROM video
+        WHERE ST_DWithin(coordinates, ST_GeomFromText(#{point}, 4326), #{distance});
+    </select>
+</mapper>
