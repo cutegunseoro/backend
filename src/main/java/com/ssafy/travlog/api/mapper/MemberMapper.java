@@ -4,11 +4,11 @@ import com.ssafy.travlog.api.model.MemberModel;
 
 public interface MemberMapper {
 
-    MemberModel selectMemberByMemberId(long member_id);
+    MemberModel selectMemberByMemberId(long memberId);
 
-    MemberModel selectMemberByLoginId(String login_id);
+    MemberModel selectMemberByLoginId(String loginId);
 
-    MemberModel selectMemberByPublicId(String public_id);
+    MemberModel selectMemberByPublicId(String publicId);
 
     int insertMember(MemberModel memberModel);
 }
