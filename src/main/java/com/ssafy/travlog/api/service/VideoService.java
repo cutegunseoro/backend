@@ -1,6 +1,7 @@
 package com.ssafy.travlog.api.service;
 
 import com.github.f4b6a3.uuid.UuidCreator;
+import com.ssafy.travlog.api.dto.video.VideoFileUploadResponse;
 import com.ssafy.travlog.api.dto.video.VideoMetadata;
 import com.ssafy.travlog.api.dto.video.VideoMetadataUploadRequest;
 import com.ssafy.travlog.api.mapper.VideoMapper;
@@ -37,7 +38,7 @@ public class VideoService {
         }
     }
 
-    public String uploadVideoFile(
+    public VideoFileUploadResponse uploadVideoFile(
             Authentication authenticaiton,
             MultipartFile file
     ) throws IOException {
@@ -50,7 +51,7 @@ public class VideoService {
         String filePath = UuidCreator.getTimeOrderedEpoch().toString() + fileUtil.getFileExtension(file.getOriginalFilename());
 
         file.transferTo(Paths.get(videoDir, filePath).toFile());
-        return filePath;
+        return new VideoFileUploadResponse(filePath);
     }
 
     public int uploadVideoMetadata(

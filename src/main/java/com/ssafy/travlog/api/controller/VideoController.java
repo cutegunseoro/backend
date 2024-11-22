@@ -1,5 +1,6 @@
 package com.ssafy.travlog.api.controller;
 
+import com.ssafy.travlog.api.dto.video.VideoFileUploadResponse;
 import com.ssafy.travlog.api.dto.video.VideoMetadataUploadRequest;
 import com.ssafy.travlog.api.service.VideoService;
 import lombok.RequiredArgsConstructor;
@@ -19,12 +20,12 @@ public class VideoController {
     private final VideoService videoService;
 
     @PostMapping("/upload")
-    public ResponseEntity<String> uploadVideoFile(
+    public ResponseEntity<VideoFileUploadResponse> uploadVideoFile(
             Authentication authentication,
             @RequestParam("file") MultipartFile file
     ) throws IOException {
-        String videoUrl = videoService.uploadVideoFile(authentication, file);
-        return ResponseEntity.ok(videoUrl);
+        VideoFileUploadResponse res = videoService.uploadVideoFile(authentication, file);
+        return ResponseEntity.ok(res);
     }
 
     @PutMapping
