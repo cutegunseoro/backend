@@ -1,6 +1,6 @@
 package com.ssafy.travlog.api.controller;
 
-import com.ssafy.travlog.api.dto.video.VideoMetaInsertRequest;
+import com.ssafy.travlog.api.dto.video.VideoMetadataUploadRequest;
 import com.ssafy.travlog.api.service.VideoService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,8 +24,8 @@ public class VideoController {
     }
 
     @PostMapping
-    public ResponseEntity<String> uploadVideoMetadata(@RequestBody VideoMetaInsertRequest videoMetaInsertRequest) {
-        int result = videoService.uploadVideoMetadata(videoMetaInsertRequest);
+    public ResponseEntity<String> uploadVideoMetadata(@RequestBody VideoMetadataUploadRequest videoMetadataUploadRequest) {
+        int result = videoService.uploadVideoMetadata(videoMetadataUploadRequest);
         if (result == 0) {
             return ResponseEntity.badRequest().body("Failed to upload video metadata");
         }

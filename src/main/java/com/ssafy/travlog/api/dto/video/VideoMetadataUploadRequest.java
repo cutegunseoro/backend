@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class VideoMetaInsertRequest {
+public class VideoMetadataUploadRequest {
     private Long memberId;
     private Long travelId;
     private String coordinates;

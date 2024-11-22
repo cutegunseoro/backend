@@ -1,13 +1,13 @@
 package com.ssafy.travlog.api.mapper;
 
-import com.ssafy.travlog.api.dto.video.VideoMetaInsertRequest;
+import com.ssafy.travlog.api.dto.video.VideoMetadataUploadRequest;
 import com.ssafy.travlog.api.model.VideoModel;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
 public interface VideoMapper {
-    int insertVideo(VideoMetaInsertRequest videoMetaInsertRequest);
+    int insertVideo(VideoMetadataUploadRequest videoMetadataUploadRequest);
 
     VideoModel selectVideoByVideoId(long videoId);
 

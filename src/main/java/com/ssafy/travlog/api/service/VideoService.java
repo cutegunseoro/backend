@@ -1,7 +1,7 @@
 package com.ssafy.travlog.api.service;
 
 import com.github.f4b6a3.uuid.UuidCreator;
-import com.ssafy.travlog.api.dto.video.VideoMetaInsertRequest;
+import com.ssafy.travlog.api.dto.video.VideoMetadataUploadRequest;
 import com.ssafy.travlog.api.mapper.VideoMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -29,7 +29,7 @@ public class VideoService {
         return (dotIndex >= 0) ? fileName.substring(dotIndex) : ""; // Include the dot (e.g., ".mp4")
     }
 
-    public int uploadVideoMetadata(VideoMetaInsertRequest videoMetaInsertRequest) {
-        return videoMapper.insertVideo(videoMetaInsertRequest);
+    public int uploadVideoMetadata(VideoMetadataUploadRequest videoMetadataUploadRequest) {
+        return videoMapper.insertVideo(videoMetadataUploadRequest);
     }
 }
