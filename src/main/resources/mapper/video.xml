@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.ssafy.travlog.api.mapper.VideoMapper">
-    <insert id="insertVideo" parameterType="VideoModel">
+    <insert id="insertVideo" parameterType="VideoInsertModel">
         INSERT INTO video (member_id, travel_id, coordinates, video_url, thumbnail_url, title, description)
         VALUES (#{memberId}, #{travelId}, ST_GeomFromText(#{coordinates}, 4326), #{videoUrl}, #{thumbnailUrl}, #{title},
                 #{description})
@@ -26,7 +26,7 @@
         WHERE member_id = #{member_id}
     </select>
 
-    <select id="searchVideosByCoordinatesWithinDistance" parameterType="map" resultType="Location">
+    <select id="searchVideosByCoordinatesWithinDistance" resultType="VideoModel">
         SELECT *
         FROM video
         WHERE ST_DWithin(coordinates, ST_GeomFromText(#{coordinates}, 4326), #{distance});

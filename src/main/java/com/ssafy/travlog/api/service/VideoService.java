@@ -4,6 +4,7 @@ import com.github.f4b6a3.uuid.UuidCreator;
 import com.ssafy.travlog.api.dto.video.VideoMetadata;
 import com.ssafy.travlog.api.dto.video.VideoMetadataUploadRequest;
 import com.ssafy.travlog.api.mapper.VideoMapper;
+import com.ssafy.travlog.api.model.VideoInsertModel;
 import com.ssafy.travlog.api.model.VideoModel;
 import com.ssafy.travlog.api.util.FileUtil;
 import com.ssafy.travlog.api.util.MemberUtil;
@@ -49,7 +50,16 @@ public class VideoService {
         Long memberId = memberUtil.getMemberIdFromAuthentication(authentication);
         videoMetadataUploadRequest.setMemberId(memberId);
 
-        return videoMapper.insertVideo(videoMetadataUploadRequest);
+        VideoInsertModel videoInsertModel = VideoInsertModel.builder()
+                .memberId(videoMetadataUploadRequest.getMemberId())
+                .travelId(videoMetadataUploadRequest.getTravelId())
+                .coordinates(videoMetadataUploadRequest.getCoordinates())
+                .videoUrl(videoMetadataUploadRequest.getVideoUrl())
+                .thumbnailUrl(videoMetadataUploadRequest.getThumbnailUrl())
+                .title(videoMetadataUploadRequest.getTitle())
+                .description(videoMetadataUploadRequest.getDescription())
+                .build();
+        return videoMapper.insertVideo(videoInsertModel);
     }
 
     public VideoMetadata getVideoMetadata(Long videoId) {
