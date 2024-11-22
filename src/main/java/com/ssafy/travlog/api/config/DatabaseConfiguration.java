@@ -2,8 +2,6 @@ package com.ssafy.travlog.api.config;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -25,18 +23,4 @@ public class DatabaseConfiguration {
     public DataSource dataSource() {
         return new HikariDataSource(hikariConfig());
     }
-
-    @Bean
-    public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
-        SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
-        sessionFactory.setDataSource(dataSource);
-
-        // MyBatis Configuration
-        org.apache.ibatis.session.Configuration configuration = new org.apache.ibatis.session.Configuration();
-        configuration.setMapUnderscoreToCamelCase(true); // Enable snake_case to camelCase mapping
-        sessionFactory.setConfiguration(configuration);
-
-        return sessionFactory.getObject();
-    }
-
 }
