@@ -1,6 +1,5 @@
 package com.ssafy.travlog.api.controller;
 
-import com.ssafy.travlog.api.dto.member.MemberInfo;
 import com.ssafy.travlog.api.dto.member.MemberInfoResponse;
 import com.ssafy.travlog.api.dto.video.VideoMetadataListResponse;
 import com.ssafy.travlog.api.service.MemberService;
@@ -23,11 +22,8 @@ public class MemberController {
     @GetMapping("/{publicId}")
     public ResponseEntity<MemberInfoResponse> getMemberInfo(@PathVariable String publicId, Authentication authentication) {
         String tokenPublicId = authentication.getName();
-        MemberInfo memberInfo = memberService.getMemberByPublicId(publicId);
-        if (memberInfo == null) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(new MemberInfoResponse(memberInfo));
+        var res = memberService.getMemberByPublicId(publicId);
+        return ResponseEntity.ok(res);
     }
 
     @GetMapping("/{publicId}/videos")
