@@ -4,6 +4,7 @@ import com.ssafy.travlog.api.dto.auth.LoginRequest;
 import com.ssafy.travlog.api.dto.auth.SignupRequest;
 import com.ssafy.travlog.api.dto.member.MemberInfo;
 import com.ssafy.travlog.api.mapper.MemberMapper;
+import com.ssafy.travlog.api.model.MemberInsertModel;
 import com.ssafy.travlog.api.model.MemberModel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -40,10 +41,11 @@ public class MemberService {
     }
 
     public int signup(SignupRequest signupRequest) {
-        MemberModel memberModel = new MemberModel();
-        memberModel.setLoginId(signupRequest.getLoginId());
-        memberModel.setHashedPassword(passwordEncoder.encode(signupRequest.getPassword()));
-        memberModel.setPublicId(signupRequest.getPublicId());
-        return memberMapper.insertMember(memberModel);
+        MemberInsertModel memberInsertModel = MemberInsertModel.builder()
+                .loginId(signupRequest.getLoginId())
+                .hashedPassword(passwordEncoder.encode(signupRequest.getPassword()))
+                .publicId(signupRequest.getPublicId())
+                .build();
+        return memberMapper.insertMember(memberInsertModel);
     }
 }

@@ -1,5 +1,6 @@
 package com.ssafy.travlog.api.mapper;
 
+import com.ssafy.travlog.api.model.MemberInsertModel;
 import com.ssafy.travlog.api.model.MemberModel;
 
 public interface MemberMapper {
@@ -10,5 +11,5 @@ public interface MemberMapper {
 
     MemberModel selectMemberByPublicId(String publicId);
 
-    int insertMember(MemberModel memberModel);
+    int insertMember(MemberInsertModel memberInsertModel);
 }

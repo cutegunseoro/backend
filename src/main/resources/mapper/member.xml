@@ -5,23 +5,23 @@
     <select id="selectMemberByMemberId" resultType="MemberModel">
         SELECT *
         FROM member
-        WHERE member_id = #{member_id}
+        WHERE member_id = #{memberId}
     </select>
 
     <select id="selectMemberByLoginId" resultType="MemberModel">
         SELECT *
         FROM member
-        WHERE login_id = #{login_id}
+        WHERE login_id = #{loginId}
     </select>
 
     <select id="selectMemberByPublicId" resultType="MemberModel">
         SELECT *
         FROM member
-        WHERE public_id = #{public_id}
+        WHERE public_id = #{publicId}
     </select>
 
-    <insert id="insertMember" parameterType="MemberModel">
+    <insert id="insertMember" parameterType="MemberInsertModel">
         INSERT INTO member (login_id, hashed_password, public_id)
-        VALUES (#{login_id}, #{hashed_password}, #{public_id})
+        VALUES (#{loginId}, #{hashedPassword}, #{publicId})
     </insert>
 </mapper>
