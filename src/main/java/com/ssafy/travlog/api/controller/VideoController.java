@@ -18,8 +18,8 @@ public class VideoController {
     private final VideoService videoService;
 
     @PostMapping("/upload")
-    public ResponseEntity<String> uploadVideo(@RequestParam("file") MultipartFile file) throws IOException {
-        String videoUrl = videoService.saveVideo(file);
+    public ResponseEntity<String> uploadVideoFile(@RequestParam("file") MultipartFile file) throws IOException {
+        String videoUrl = videoService.uploadVideoFile(file);
         return ResponseEntity.ok(videoUrl);
     }
 

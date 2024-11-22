@@ -17,7 +17,11 @@ public class VideoService {
 
     private final VideoMapper videoMapper;
 
-    public String saveVideo(MultipartFile file) throws IOException {
+    public String uploadVideoFile(MultipartFile file) throws IOException {
+        if (file == null || file.isEmpty()) {
+            throw new IllegalArgumentException("File is null");
+        }
+        
         String filePath = uploadDir + "/" + UuidCreator.getTimeOrderedEpoch().toString() + getFileExtension(file.getOriginalFilename());
 
         file.transferTo(new File(filePath));
