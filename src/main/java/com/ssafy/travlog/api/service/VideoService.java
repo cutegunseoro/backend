@@ -1,9 +1,7 @@
 package com.ssafy.travlog.api.service;
 
 import com.github.f4b6a3.uuid.UuidCreator;
-import com.ssafy.travlog.api.dto.video.VideoFileUploadResponse;
-import com.ssafy.travlog.api.dto.video.VideoMetadata;
-import com.ssafy.travlog.api.dto.video.VideoMetadataUploadRequest;
+import com.ssafy.travlog.api.dto.video.*;
 import com.ssafy.travlog.api.mapper.VideoMapper;
 import com.ssafy.travlog.api.model.VideoInsertModel;
 import com.ssafy.travlog.api.model.VideoModel;
@@ -54,7 +52,7 @@ public class VideoService {
         return new VideoFileUploadResponse(filePath);
     }
 
-    public int uploadVideoMetadata(
+    public void uploadVideoMetadata(
             Authentication authentication,
             VideoMetadataUploadRequest videoMetadataUploadRequest
     ) {
@@ -68,22 +66,28 @@ public class VideoService {
                 .title(videoMetadataUploadRequest.getTitle())
                 .description(videoMetadataUploadRequest.getDescription())
                 .build();
-        return videoMapper.insertVideo(videoInsertModel);
+        int result = videoMapper.insertVideo(videoInsertModel);
+        if (result != 1) {
+            throw new RuntimeException("Failed to insert video metadata");
+        }
     }
 
-    public VideoMetadata getVideoMetadata(Long videoId) {
+    public VideoMetadataResponse getVideoMetadata(Long videoId) {
         VideoModel videoModel = videoMapper.selectVideoByVideoId(videoId);
-        return convertVideoModelToVideoMetadata(videoModel);
+        VideoMetadata videoMetadata = convertVideoModelToVideoMetadata(videoModel);
+        return new VideoMetadataResponse(videoMetadata);
     }
 
-    public List<VideoMetadata> getVideoMetadataListOfTravel(Long travelId) {
+    public VideoMetadataListResponse getVideoMetadataListOfTravel(Long travelId) {
         List<VideoModel> videoModelList = videoMapper.selectVideosByTravelId(travelId);
-        return videoModelList.stream().map(this::convertVideoModelToVideoMetadata).toList();
+        List<VideoMetadata> videoMetadataList = videoModelList.stream().map(this::convertVideoModelToVideoMetadata).toList();
+        return new VideoMetadataListResponse(videoMetadataList);
     }
 
-    public List<VideoMetadata> getVideoMetadataListOfMember(String publicId) {
+    public VideoMetadataListResponse getVideoMetadataListOfMember(String publicId) {
         List<VideoModel> videoModelList = videoMapper.selectVideosByMemberId(memberUtil.getMemberIdByPublicId(publicId));
-        return videoModelList.stream().map(this::convertVideoModelToVideoMetadata).toList();
+        List<VideoMetadata> videoMetadataList = videoModelList.stream().map(this::convertVideoModelToVideoMetadata).toList();
+        return new VideoMetadataListResponse(videoMetadataList);
     }
 
     private VideoMetadata convertVideoModelToVideoMetadata(VideoModel videoModel) {
