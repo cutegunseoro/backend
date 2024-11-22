@@ -57,10 +57,9 @@ public class VideoService {
             Authentication authentication,
             VideoMetadataUploadRequest videoMetadataUploadRequest
     ) {
-        Long memberId = memberUtil.getMemberIdFromAuthentication(authentication);
-        videoMetadataUploadRequest.setMemberId(memberId);
 
         VideoInsertModel videoInsertModel = VideoInsertModel.builder()
+                .memberId(memberUtil.getMemberIdFromAuthentication(authentication))
                 .travelId(videoMetadataUploadRequest.getTravelId())
                 .coordinates(videoMetadataUploadRequest.getCoordinates())
                 .videoUrl(videoMetadataUploadRequest.getVideoUrl())
