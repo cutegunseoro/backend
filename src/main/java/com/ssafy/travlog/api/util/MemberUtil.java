@@ -19,6 +19,9 @@ public class MemberUtil {
     }
 
     public String getPublicIdByMemberId(Long memberId) {
+        if (memberId == null) {
+            return null;
+        }
         return memberMapper.selectMemberByMemberId(memberId).getPublicId();
     }
 }
