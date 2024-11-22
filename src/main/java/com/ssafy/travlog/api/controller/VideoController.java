@@ -38,4 +38,11 @@ public class VideoController {
         }
         return ResponseEntity.ok("Video metadata uploaded successfully");
     }
+
+    @GetMapping("/{videoId}")
+    public ResponseEntity<String> getVideoMetadata(
+            @PathVariable Long videoId
+    ) {
+        return ResponseEntity.ok(videoService.getVideoMetadata(videoId).toString());
+    }
 }
