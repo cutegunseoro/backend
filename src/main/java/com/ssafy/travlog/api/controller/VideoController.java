@@ -27,7 +27,7 @@ public class VideoController {
         return ResponseEntity.ok(videoUrl);
     }
 
-    @PostMapping
+    @PutMapping
     public ResponseEntity<String> uploadVideoMetadata(
             Authentication authentication,
             @RequestBody VideoMetadataUploadRequest videoMetadataUploadRequest
