@@ -8,6 +8,7 @@ import com.ssafy.travlog.api.model.VideoInsertModel;
 import com.ssafy.travlog.api.model.VideoModel;
 import com.ssafy.travlog.api.util.FileUtil;
 import com.ssafy.travlog.api.util.MemberUtil;
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
@@ -15,17 +16,26 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class VideoService {
-    private final String uploadDir = System.getProperty("user.dir") + "/uploads/videos";
-
     private final VideoMapper videoMapper;
 
     private final FileUtil fileUtil;
     private final MemberUtil memberUtil;
+
+    private final String videoDir = System.getProperty("user.dir") + "/uploads/videos";
+
+    @PostConstruct
+    public void init() {
+        File dir = new File(videoDir);
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
+    }
 
     public String uploadVideoFile(
             Authentication authenticaiton,
@@ -37,9 +47,9 @@ public class VideoService {
 
         // TODO: implement authentication check (rate limit, etc.)
 
-        String filePath = uploadDir + "/" + UuidCreator.getTimeOrderedEpoch().toString() + fileUtil.getFileExtension(file.getOriginalFilename());
+        String filePath = UuidCreator.getTimeOrderedEpoch().toString() + fileUtil.getFileExtension(file.getOriginalFilename());
 
-        file.transferTo(new File(filePath));
+        file.transferTo(Paths.get(videoDir, filePath).toFile());
         return filePath;
     }
 
@@ -51,7 +61,6 @@ public class VideoService {
         videoMetadataUploadRequest.setMemberId(memberId);
 
         VideoInsertModel videoInsertModel = VideoInsertModel.builder()
-                .memberId(videoMetadataUploadRequest.getMemberId())
                 .travelId(videoMetadataUploadRequest.getTravelId())
                 .coordinates(videoMetadataUploadRequest.getCoordinates())
                 .videoUrl(videoMetadataUploadRequest.getVideoUrl())
