@@ -9,25 +9,53 @@
     </insert>
 
     <select id="selectVideoByVideoId" resultType="VideoModel">
-        SELECT *
+        SELECT video_id,
+               member_id,
+               travel_id,
+               ST_AsText(coordinates) AS coordinates,
+               video_url,
+               thumbnail_url,
+               title,
+               description
         FROM video
         WHERE video_id = #{video_id}
     </select>
 
     <select id="selectVideosByTravelId" resultType="VideoModel">
-        SELECT *
+        SELECT video_id,
+               member_id,
+               travel_id,
+               ST_AsText(coordinates) AS coordinates,
+               video_url,
+               thumbnail_url,
+               title,
+               description
         FROM video
         WHERE travel_id = #{travel_id}
     </select>
 
     <select id="selectVideosByMemberId" resultType="VideoModel">
-        SELECT *
+        SELECT video_id,
+               member_id,
+               travel_id,
+               ST_AsText(coordinates) AS coordinates,
+               video_url,
+               thumbnail_url,
+               title,
+               description
         FROM video
         WHERE member_id = #{member_id}
     </select>
 
     <select id="searchVideosByCoordinatesWithinDistance" resultType="VideoModel">
-        SELECT *
+        SELECT video_id,
+               member_id,
+               travel_id,
+               ST_AsText(coordinates) AS coordinates,
+               video_url,
+               thumbnail_url,
+               title,
+               description
         FROM video
         WHERE ST_DWithin(coordinates, ST_GeomFromText(#{coordinates}, 4326), #{distance});
     </select>
