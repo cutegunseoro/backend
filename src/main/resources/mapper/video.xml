@@ -3,8 +3,9 @@
 
 <mapper namespace="com.ssafy.travlog.api.mapper.VideoMapper">
     <insert id="insertVideo" parameterType="VideoModel">
-        INSERT INTO video (login_id, hashed_password, public_id)
-        VALUES (#{login_id}, #{hashed_password}, #{public_id})
+        INSERT INTO video (member_id, travel_id, coordinates, video_url, thumbnail_url, title, description)
+        VALUES (#{memberId}, #{travelId}, ST_GeomFromText(#{coordinates}, 4326), #{videoUrl}, #{thumbnailUrl}, #{title},
+                #{description})
     </insert>
 
     <select id="selectVideoByVideoId" resultType="VideoModel">
@@ -28,6 +29,6 @@
     <select id="searchVideosByCoordinatesWithinDistance" parameterType="map" resultType="Location">
         SELECT *
         FROM video
-        WHERE ST_DWithin(coordinates, ST_GeomFromText(#{point}, 4326), #{distance});
+        WHERE ST_DWithin(coordinates, ST_GeomFromText(#{coordinates}, 4326), #{distance});
     </select>
 </mapper>
