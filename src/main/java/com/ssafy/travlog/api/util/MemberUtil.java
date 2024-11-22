@@ -17,4 +17,8 @@ public class MemberUtil {
     public Long getMemberIdFromAuthentication(Authentication authentication) {
         return getMemberIdByPublicId(authentication.getName());
     }
+
+    public String getPublicIdByMemberId(Long memberId) {
+        return memberMapper.selectMemberByMemberId(memberId).getPublicId();
+    }
 }
