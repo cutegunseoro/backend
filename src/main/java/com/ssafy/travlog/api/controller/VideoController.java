@@ -1,7 +1,6 @@
 package com.ssafy.travlog.api.controller;
 
 import com.ssafy.travlog.api.dto.video.VideoFileUploadResponse;
-import com.ssafy.travlog.api.dto.video.VideoMetadata;
 import com.ssafy.travlog.api.dto.video.VideoMetadataResponse;
 import com.ssafy.travlog.api.dto.video.VideoMetadataUploadRequest;
 import com.ssafy.travlog.api.service.VideoService;
@@ -43,7 +42,7 @@ public class VideoController {
     public ResponseEntity<VideoMetadataResponse> getVideoMetadata(
             @PathVariable Long videoId
     ) {
-        VideoMetadata videoMetadata = videoService.getVideoMetadata(videoId);
-        return ResponseEntity.ok(videoMetadata);
+        var res = videoService.getVideoMetadata(videoId);
+        return ResponseEntity.ok(res);
     }
 }
