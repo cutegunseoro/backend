@@ -51,12 +51,14 @@
         SELECT video_id,
                member_id,
                travel_id,
-               ST_AsText(coordinates) AS coordinates,
+               ST_AsText(coordinates)                                          AS coordinates,
                video_url,
                thumbnail_url,
                title,
-               description
+               description,
+               ST_Distance(coordinates, ST_GeomFromText(#{coordinates}, 4326)) AS distance
         FROM video
-        WHERE ST_DWithin(coordinates, ST_GeomFromText(#{coordinates}, 4326), #{distance});
+        WHERE ST_Distance(coordinates, ST_GeomFromText(#{coordinates}, 4326)) &lt;= #{distance}
+        ORDER BY distance;
     </select>
 </mapper>
