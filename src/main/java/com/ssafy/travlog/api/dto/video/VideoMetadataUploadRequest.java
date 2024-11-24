@@ -10,11 +10,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class VideoMetadataUploadRequest {
-    private Long memberId;
-    private Long travelId;
-    private String coordinates;
-    private String videoUrl;
-    private String thumbnailUrl;
-    private String title;
-    private String description;
+	private Long travelId;
+	private String coordinates;
+	private String videoUrl;
+	private String thumbnailUrl;
+	private String title;
+	private String description;
 }
