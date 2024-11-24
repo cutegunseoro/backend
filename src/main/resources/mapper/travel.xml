@@ -15,7 +15,7 @@
     </select>
 
     <insert id="insertTravel" parameterType="TravelInsertModel">
-        INSERT INTO travel (member_id, title, start_datetime, end_datetime)
-        VALUES (#{memberId}, #{title}, #{startDatetime}, #{endDatetime})
+        INSERT INTO travel (member_id, title, start_date_time, end_date_time)
+        VALUES (#{memberId}, #{title}, #{startDateTime}, #{endDateTime})
     </insert>
 </mapper>

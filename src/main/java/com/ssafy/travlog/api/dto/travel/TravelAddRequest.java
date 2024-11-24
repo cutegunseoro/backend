@@ -1,18 +1,16 @@
-package com.ssafy.travlog.api.model;
+package com.ssafy.travlog.api.dto.travel;
 
 import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-public class TravelInsertModel {
-	private long memberId;
+public class TravelAddRequest {
+	private String publicId;
 	private String title;
 	private LocalDateTime startDateTime;
 	private LocalDateTime endDateTime;

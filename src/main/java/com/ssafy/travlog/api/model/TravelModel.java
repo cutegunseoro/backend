@@ -13,7 +13,7 @@ public class TravelModel {
 	private long travelId;
 	private long memberId;
 	private String title;
-	private LocalDateTime startDatetime;
-	private LocalDateTime endDatetime;
+	private LocalDateTime startDateTime;
+	private LocalDateTime endDateTime;
 	private LocalDateTime createdAt;
 }
