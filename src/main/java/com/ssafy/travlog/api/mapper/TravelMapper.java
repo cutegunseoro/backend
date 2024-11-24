@@ -8,7 +8,7 @@ import com.ssafy.travlog.api.model.TravelModel;
 public interface TravelMapper {
 	int insertTravel(TravelInsertModel travelInsertModel);
 
-	TravelModel selectTravelByTravelId(int travelId);
+	TravelModel selectTravelByTravelId(long travelId);
 
-	List<TravelModel> selectTravelsByMemberId(int memberId);
+	List<TravelModel> selectTravelsByMemberId(long memberId);
 }

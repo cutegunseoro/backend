@@ -3,8 +3,11 @@ package com.ssafy.travlog.api.service;
 import org.springframework.stereotype.Service;
 
 import com.ssafy.travlog.api.dto.travel.TravelAddRequest;
+import com.ssafy.travlog.api.dto.travel.TravelInfo;
+import com.ssafy.travlog.api.dto.travel.TravelInfoResponse;
 import com.ssafy.travlog.api.mapper.TravelMapper;
 import com.ssafy.travlog.api.model.TravelInsertModel;
+import com.ssafy.travlog.api.model.TravelModel;
 import com.ssafy.travlog.api.util.MemberUtil;
 
 import lombok.RequiredArgsConstructor;
@@ -23,6 +26,26 @@ public class TravelService {
 			.startDateTime(travelAddRequest.getStartDateTime())
 			.endDateTime(travelAddRequest.getEndDateTime())
 			.build();
-		travelMapper.insertTravel(travelInsertModel);
+		int result = travelMapper.insertTravel(travelInsertModel);
+		if (result != 1) {
+			throw new RuntimeException("failed to add travel");
+		}
+	}
+
+	public TravelInfoResponse getTravelInfo(long travelId) {
+		TravelModel travelModel = travelMapper.selectTravelByTravelId(travelId);
+		TravelInfo travelInfo = convertTravelModelToTravelInfo(travelModel);
+		return new TravelInfoResponse(travelInfo);
+	}
+
+	private TravelInfo convertTravelModelToTravelInfo(TravelModel travelModel) {
+		return TravelInfo.builder()
+			.travelId(travelModel.getTravelId())
+			.publicId(memberUtil.getPublicIdByMemberId(travelModel.getMemberId()))
+			.title(travelModel.getTitle())
+			.startDateTime(travelModel.getStartDateTime())
+			.endDateTime(travelModel.getEndDateTime())
+			.createdAt(travelModel.getCreatedAt())
+			.build();
 	}
 }
