@@ -35,6 +35,12 @@ jwt:
   secret: ${JWT_SECRET}
   access_token_expiration: 86400000 # 1 day
 
+# AWS
+aws:
+  s3:
+    bucket-name: travlog-bucket
+    link-expiration-minute: 15
+
 # logging
 logging:
   level:

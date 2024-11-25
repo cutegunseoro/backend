@@ -1,20 +1,16 @@
 package com.ssafy.travlog.api.controller;
 
-import java.io.IOException;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
-import com.ssafy.travlog.api.dto.video.VideoFileUploadResponse;
+import com.ssafy.travlog.api.dto.video.GenerateVideoFileUploadUrlResponse;
 import com.ssafy.travlog.api.dto.video.VideoMetadataListResponse;
 import com.ssafy.travlog.api.dto.video.VideoMetadataResponse;
 import com.ssafy.travlog.api.dto.video.VideoMetadataUploadRequest;
@@ -30,13 +26,13 @@ import lombok.extern.slf4j.Slf4j;
 public class VideoController {
 	private final VideoService videoService;
 
-	@PostMapping("/upload")
-	public ResponseEntity<VideoFileUploadResponse> uploadVideoFile(
+	@GetMapping("/upload-url")
+	public ResponseEntity<GenerateVideoFileUploadUrlResponse> generateVideoFileUploadUrl(
 		Authentication authentication,
-		@RequestParam("file") MultipartFile file
-	) throws IOException {
-		VideoFileUploadResponse res = videoService.uploadVideoFile(authentication, file);
-		return ResponseEntity.ok(res);
+		@RequestParam("contentType") String contentType
+	) {
+		var res = videoService.generateVideoFileUploadUrl(authentication, contentType);
+		return ResponseEntity.ok().body(res);
 	}
 
 	@PutMapping

@@ -1,16 +1,12 @@
 package com.ssafy.travlog.api.service;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Paths;
+import java.net.URL;
 import java.util.List;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
-import com.github.f4b6a3.uuid.UuidCreator;
-import com.ssafy.travlog.api.dto.video.VideoFileUploadResponse;
+import com.ssafy.travlog.api.dto.video.GenerateVideoFileUploadUrlResponse;
 import com.ssafy.travlog.api.dto.video.VideoMetadata;
 import com.ssafy.travlog.api.dto.video.VideoMetadataListResponse;
 import com.ssafy.travlog.api.dto.video.VideoMetadataResponse;
@@ -18,10 +14,10 @@ import com.ssafy.travlog.api.dto.video.VideoMetadataUploadRequest;
 import com.ssafy.travlog.api.mapper.VideoMapper;
 import com.ssafy.travlog.api.model.VideoInsertModel;
 import com.ssafy.travlog.api.model.VideoModel;
-import com.ssafy.travlog.api.util.FileUtil;
 import com.ssafy.travlog.api.util.MemberUtil;
+import com.ssafy.travlog.api.util.S3Util;
+import com.ssafy.travlog.api.util.UuidUtil;
 
-import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -29,41 +25,27 @@ import lombok.RequiredArgsConstructor;
 public class VideoService {
 	private final VideoMapper videoMapper;
 
-	private final FileUtil fileUtil;
+	private final S3Util s3Util;
 	private final MemberUtil memberUtil;
+	private final UuidUtil uuidUtil;
 
-	private final String videoDir = System.getProperty("user.dir") + "/uploads/videos";
+	private final List<String> allowedContentTypes = List.of("video/webm", "video/mp4");
 
-	@PostConstruct
-	public void init() {
-		File dir = new File(videoDir);
-		if (!dir.exists()) {
-			dir.mkdirs();
+	public GenerateVideoFileUploadUrlResponse generateVideoFileUploadUrl(
+		Authentication authentication,
+		String contentType
+	) {
+		if (!allowedContentTypes.contains(contentType)) {
+			throw new RuntimeException("Not supported Video Type");
 		}
-	}
-
-	public VideoFileUploadResponse uploadVideoFile(
-		Authentication authenticaiton,
-		MultipartFile file
-	) throws IOException {
-		if (file == null || file.isEmpty()) {
-			throw new IllegalArgumentException("File is null");
-		}
-
-		// TODO: implement authentication check (rate limit, etc.)
-
-		String filePath =
-			UuidCreator.getTimeOrderedEpoch().toString() + fileUtil.getFileExtension(file.getOriginalFilename());
-
-		file.transferTo(Paths.get(videoDir, filePath).toFile());
-		return new VideoFileUploadResponse(filePath);
+		URL preSignedUrl = s3Util.generatePreSignedUrl(uuidUtil.getUUIDv7().toString());
+		return new GenerateVideoFileUploadUrlResponse(preSignedUrl);
 	}
 
 	public void uploadVideoMetadata(
 		Authentication authentication,
 		VideoMetadataUploadRequest videoMetadataUploadRequest
 	) {
-
 		VideoInsertModel videoInsertModel = VideoInsertModel.builder()
 			.memberId(memberUtil.getMemberIdFromAuthentication(authentication))
 			.travelId(videoMetadataUploadRequest.getTravelId())
