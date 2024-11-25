@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class GenerateVideoFileUploadUrlResponse {
+public class VideoFileUploadUrlResponse {
 	private String objectKey;
 	private URL preSignedUrl;
 }

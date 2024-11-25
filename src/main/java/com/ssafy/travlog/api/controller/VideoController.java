@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ssafy.travlog.api.dto.video.GenerateVideoFileUploadUrlResponse;
+import com.ssafy.travlog.api.dto.video.VideoFileUploadUrlResponse;
 import com.ssafy.travlog.api.dto.video.VideoMetadataListResponse;
 import com.ssafy.travlog.api.dto.video.VideoMetadataResponse;
 import com.ssafy.travlog.api.dto.video.VideoMetadataUploadRequest;
@@ -27,7 +27,7 @@ public class VideoController {
 	private final VideoService videoService;
 
 	@GetMapping("/upload-url")
-	public ResponseEntity<GenerateVideoFileUploadUrlResponse> generateVideoFileUploadUrl(
+	public ResponseEntity<VideoFileUploadUrlResponse> getVideoFileUploadUrl(
 		Authentication authentication,
 		@RequestParam("contentType") String contentType
 	) {
