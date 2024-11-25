@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ssafy.travlog.api.dto.video.VideoFileStreamUrlResponse;
 import com.ssafy.travlog.api.dto.video.VideoFileUploadUrlResponse;
 import com.ssafy.travlog.api.dto.video.VideoMetadataListResponse;
 import com.ssafy.travlog.api.dto.video.VideoMetadataResponse;
@@ -50,6 +51,15 @@ public class VideoController {
 	) {
 		var res = videoService.getVideoMetadata(videoId);
 		return ResponseEntity.ok(res);
+	}
+
+	@GetMapping("/{videoId}/stream-url")
+	public ResponseEntity<VideoFileStreamUrlResponse> getVideoFileStreamUrl(
+		Authentication authentication,
+		@PathVariable Long videoId
+	) {
+		var res = videoService.generateVideoFileStreamUrl(authentication, videoId);
+		return ResponseEntity.ok().body(res);
 	}
 
 	@GetMapping("/search")

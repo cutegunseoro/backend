@@ -50,7 +50,7 @@ public class VideoService {
 	) {
 		VideoModel videoModel = videoMapper.selectVideoByVideoId(videoId);
 		URL preSignedUrl = s3Util.generatePreSignedGetUrl(videoModel.getVideoS3Key());
-		return new VideoFileStreamUrlResponse(preSignedUrl);
+		return new VideoFileStreamUrlResponse(videoModel.getVideoContentType(), preSignedUrl);
 	}
 
 	public void uploadVideoMetadata(
