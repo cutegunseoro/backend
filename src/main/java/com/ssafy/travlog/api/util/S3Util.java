@@ -23,7 +23,7 @@ public class S3Util {
 	@Value("${aws.s3.link-expiration-minute}")
 	private int linkExpirationMinute;
 
-	public URL generatePreSignedUrl(String objectKey, String contentType) {
+	public URL generatePreSignedPutUrl(String objectKey, String contentType) {
 		PutObjectRequest putObjectRequest = PutObjectRequest.builder()
 			.bucket(bucketName)
 			.key(objectKey)
@@ -38,11 +38,11 @@ public class S3Util {
 		return s3Presigner.presignPutObject(putObjectPresignRequest).url();
 	}
 
-	public URL generatePreSignedUrl(String objectKey) {
-		return generatePreSignedUrl(objectKey, null);
+	public URL generatePreSignedPutUrl(String objectKey) {
+		return generatePreSignedPutUrl(objectKey, null);
 	}
 
 	public URL generatePreSignedOctetStreamUrl(String objectKey) {
-		return generatePreSignedUrl(objectKey, "application/octet-stream");
+		return generatePreSignedPutUrl(objectKey, "application/octet-stream");
 	}
 }

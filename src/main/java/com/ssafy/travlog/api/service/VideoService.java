@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
+import com.ssafy.travlog.api.dto.video.VideoFileStreamUrlResponse;
 import com.ssafy.travlog.api.dto.video.VideoFileUploadUrlResponse;
 import com.ssafy.travlog.api.dto.video.VideoMetadata;
 import com.ssafy.travlog.api.dto.video.VideoMetadataListResponse;
@@ -41,6 +42,14 @@ public class VideoService {
 		String objectKey = "videos/" + uuidUtil.getUUIDv7().toString();
 		URL preSignedUrl = s3Util.generatePreSignedOctetStreamUrl(objectKey);
 		return new VideoFileUploadUrlResponse(objectKey, preSignedUrl);
+	}
+
+	public VideoFileStreamUrlResponse generateVideoFileStreamUrl(
+		Authentication authentication,
+		Long videoId
+	) {
+		VideoModel videoModel = videoMapper.selectVideoByVideoId(videoId);
+		videoModel.getVideoS3Key();
 	}
 
 	public void uploadVideoMetadata(
