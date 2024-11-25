@@ -10,11 +10,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class VideoInsertModel {
-    private Long memberId;
-    private Long travelId;
-    private String coordinates;
-    private String videoUrl;
-    private String thumbnailUrl;
-    private String title;
-    private String description;
+	private Long memberId;
+	private Long travelId;
+	private String coordinates;
+	private String videoS3Key;
+	private String thumbnailS3Key;
+	private String title;
+	private String description;
 }

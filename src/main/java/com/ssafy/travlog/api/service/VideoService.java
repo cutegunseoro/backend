@@ -51,8 +51,8 @@ public class VideoService {
 			.memberId(memberUtil.getMemberIdFromAuthentication(authentication))
 			.travelId(videoMetadataUploadRequest.getTravelId())
 			.coordinates(videoMetadataUploadRequest.getCoordinates())
-			.videoUrl(videoMetadataUploadRequest.getVideoUrl())
-			.thumbnailUrl(videoMetadataUploadRequest.getThumbnailUrl())
+			.videoS3Key(videoMetadataUploadRequest.getVideoS3Key())
+			.thumbnailS3Key(videoMetadataUploadRequest.getThumbnailS3Key())
 			.title(videoMetadataUploadRequest.getTitle())
 			.description(videoMetadataUploadRequest.getDescription())
 			.build();
