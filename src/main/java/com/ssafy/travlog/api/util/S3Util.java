@@ -18,7 +18,7 @@ import software.amazon.awssdk.services.s3.presigner.model.PutObjectPresignReques
 @RequiredArgsConstructor
 public class S3Util {
 	private final S3Client s3Client;
-	private final S3Presigner s3Presigner = S3Presigner.create();
+	private final S3Presigner s3Presigner;
 
 	@Value("${aws.s3.bucket-name}")
 	private String bucketName;
