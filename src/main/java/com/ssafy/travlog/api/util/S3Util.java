@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import lombok.RequiredArgsConstructor;
-import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.GetObjectRequest;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 import software.amazon.awssdk.services.s3.presigner.S3Presigner;
@@ -17,7 +16,6 @@ import software.amazon.awssdk.services.s3.presigner.model.PutObjectPresignReques
 @Component
 @RequiredArgsConstructor
 public class S3Util {
-	private final S3Client s3Client;
 	private final S3Presigner s3Presigner;
 
 	@Value("${aws.s3.bucket-name}")
