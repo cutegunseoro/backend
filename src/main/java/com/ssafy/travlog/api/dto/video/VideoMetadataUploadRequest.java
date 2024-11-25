@@ -13,7 +13,7 @@ public class VideoMetadataUploadRequest {
 	private Long travelId;
 	private String coordinates;
 	private String videoS3Key;
-	private String thumbnailS3Key;
+	private String videoContentType;
 	private String title;
 	private String description;
 }

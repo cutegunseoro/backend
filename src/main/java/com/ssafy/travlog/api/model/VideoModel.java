@@ -8,13 +8,15 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class VideoModel {
-    private Long videoId;
-    private Long memberId;
-    private Long travelId;
-    private String coordinates; // Well Known Text format: POINT (longitude latitude)
-    private String videoUrl;
-    private String thumbnailUrl;
-    private String title;
-    private String description;
-    private String createdAt;
+	private Long videoId;
+	private Long memberId;
+	private Long travelId;
+	private String coordinates; // Well Known Text format: POINT (longitude latitude)
+	private String videoS3Key;
+	private String thumbnailS3Key;
+	private String videoContentType;
+	private String thumbnailContentType;
+	private String title;
+	private String description;
+	private String createdAt;
 }

@@ -3,10 +3,13 @@
 
 <mapper namespace="com.ssafy.travlog.api.mapper.VideoMapper">
     <insert id="insertVideo" parameterType="VideoInsertModel">
-        INSERT INTO video (member_id, travel_id, coordinates, video_s3_key, thumbnail_s3_key, title, description)
-        VALUES (#{memberId}, #{travelId}, ST_GeomFromText(#{coordinates}, 4326), #{videoS3Key}, #{thumbnailS3Key},
-                #{title},
-                #{description})
+        INSERT INTO video
+        (member_id, travel_id, coordinates,
+         video_s3_key, video_content_type,
+         title, description)
+        VALUES (#{memberId}, #{travelId}, ST_GeomFromText(#{coordinates}, 4326),
+                #{videoS3Key}, #{videoContentType},
+                #{title}, #{description})
     </insert>
 
     <select id="selectVideoByVideoId" resultType="VideoModel">
@@ -16,6 +19,8 @@
                ST_AsText(coordinates) AS coordinates,
                video_s3_key,
                thumbnail_s3_key,
+               video_content_type,
+               thumbnail_content_type,
                title,
                description
         FROM video
@@ -29,6 +34,8 @@
                ST_AsText(coordinates) AS coordinates,
                video_s3_key,
                thumbnail_s3_key,
+               video_content_type,
+               thumbnail_content_type,
                title,
                description
         FROM video
@@ -42,6 +49,8 @@
                ST_AsText(coordinates) AS coordinates,
                video_s3_key,
                thumbnail_s3_key,
+               video_content_type,
+               thumbnail_content_type,
                title,
                description
         FROM video
@@ -55,6 +64,8 @@
                ST_AsText(coordinates)                                          AS coordinates,
                video_s3_key,
                thumbnail_s3_key,
+               video_content_type,
+               thumbnail_content_type,
                title,
                description,
                ST_Distance(coordinates, ST_GeomFromText(#{coordinates}, 4326)) AS distance
