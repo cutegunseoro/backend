@@ -38,8 +38,9 @@ public class VideoService {
 		if (!allowedContentTypes.contains(contentType)) {
 			throw new RuntimeException("Not supported Video Type");
 		}
-		URL preSignedUrl = s3Util.generatePreSignedUrl(uuidUtil.getUUIDv7().toString());
-		return new GenerateVideoFileUploadUrlResponse(preSignedUrl);
+		String objectKey = "videos/" + uuidUtil.getUUIDv7().toString();
+		URL preSignedUrl = s3Util.generatePreSignedUrl(objectKey);
+		return new GenerateVideoFileUploadUrlResponse(objectKey, preSignedUrl);
 	}
 
 	public void uploadVideoMetadata(
