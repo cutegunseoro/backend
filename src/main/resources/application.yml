@@ -41,6 +41,10 @@ aws:
     bucket-name: travlog-bucket
     link-expiration-minute: 15
 
+# notification
+notification:
+  max-push-subscription-per-member: 3
+
 # logging
 logging:
   level:

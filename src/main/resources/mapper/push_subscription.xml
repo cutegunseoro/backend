@@ -7,6 +7,12 @@
         VALUES (#{memberId}, #{endpoint}, #{p2556dh}, #{auth})
     </insert>
 
+    <delete id="deletePushSubscription">
+        DELETE
+        FROM push_subscription
+        WHERE push_subscription_id = #{pushSubscriptionId}
+    </delete>
+
     <select id="selectPushSubscriptionByPushSubscriptionId" resultType="PushSubscriptionModel">
         SELECT *
         FROM push_subscription
@@ -17,5 +23,6 @@
         SELECT *
         FROM push_subscription
         WHERE member_id = #{memberId}
+        ORDER BY created_at ASC
     </select>
 </mapper>

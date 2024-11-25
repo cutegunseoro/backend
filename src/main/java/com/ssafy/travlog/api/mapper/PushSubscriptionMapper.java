@@ -8,6 +8,8 @@ import com.ssafy.travlog.api.model.PushSubscriptionModel;
 public interface PushSubscriptionMapper {
 	int insertPushSubscription(PushSubscriptionInsertModel pushSubscriptionInsertModel);
 
+	int deletePushSubscription(long pushSubscriptionId);
+
 	PushSubscriptionModel selectPushSubscriptionByPushSubscriptionId(long pushSubscriptionId);
 
 	List<PushSubscriptionModel> selectPushSubscriptionsByMemberId(long memberId);
