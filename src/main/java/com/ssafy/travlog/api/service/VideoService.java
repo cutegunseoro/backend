@@ -36,6 +36,7 @@ public class VideoService {
 		Authentication authentication,
 		String contentType
 	) {
+		// TODO: add some duplicated request if necessary
 		if (!allowedContentTypes.contains(contentType)) {
 			throw new RuntimeException("Not supported Video Type");
 		}
@@ -49,6 +50,7 @@ public class VideoService {
 		Long videoId
 	) {
 		VideoModel videoModel = videoMapper.selectVideoByVideoId(videoId);
+		// TODO: add some authentication if it's private video
 		URL preSignedUrl = s3Util.generatePreSignedGetUrl(videoModel.getVideoS3Key());
 		return new VideoFileStreamUrlResponse(videoModel.getVideoContentType(), preSignedUrl);
 	}
