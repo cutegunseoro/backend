@@ -37,4 +37,12 @@ public class S3Util {
 
 		return s3Presigner.presignPutObject(putObjectPresignRequest).url();
 	}
+
+	public URL generatePreSignedUrl(String objectKey) {
+		return generatePreSignedUrl(objectKey, null);
+	}
+
+	public URL generatePreSignedOctetStreamUrl(String objectKey) {
+		return generatePreSignedUrl(objectKey, "application/octet-stream");
+	}
 }

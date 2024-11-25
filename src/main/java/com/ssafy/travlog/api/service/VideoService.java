@@ -39,7 +39,7 @@ public class VideoService {
 			throw new RuntimeException("Not supported Video Type");
 		}
 		String objectKey = "videos/" + uuidUtil.getUUIDv7().toString();
-		URL preSignedUrl = s3Util.generatePreSignedUrl(objectKey, contentType);
+		URL preSignedUrl = s3Util.generatePreSignedOctetStreamUrl(objectKey);
 		return new VideoFileUploadUrlResponse(objectKey, preSignedUrl);
 	}
 
