@@ -8,8 +8,10 @@ import org.springframework.stereotype.Component;
 
 import lombok.RequiredArgsConstructor;
 import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.GetObjectRequest;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 import software.amazon.awssdk.services.s3.presigner.S3Presigner;
+import software.amazon.awssdk.services.s3.presigner.model.GetObjectPresignRequest;
 import software.amazon.awssdk.services.s3.presigner.model.PutObjectPresignRequest;
 
 @Component
@@ -42,7 +44,17 @@ public class S3Util {
 		return generatePreSignedPutUrl(objectKey, null);
 	}
 
-	public URL generatePreSignedOctetStreamUrl(String objectKey) {
-		return generatePreSignedPutUrl(objectKey, "application/octet-stream");
+	public URL generatePreSignedGetUrl(String objectKey) {
+		GetObjectRequest getObjectRequest = GetObjectRequest.builder()
+			.bucket(bucketName)
+			.key(objectKey)
+			.build();
+
+		GetObjectPresignRequest getObjectPresignRequest = GetObjectPresignRequest.builder()
+			.getObjectRequest(getObjectRequest)
+			.signatureDuration(Duration.ofMinutes(linkExpirationMinute))
+			.build();
+
+		return s3Presigner.presignGetObject(getObjectPresignRequest).url();
 	}
 }

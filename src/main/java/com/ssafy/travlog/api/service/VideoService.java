@@ -40,7 +40,7 @@ public class VideoService {
 			throw new RuntimeException("Not supported Video Type");
 		}
 		String objectKey = "videos/" + uuidUtil.getUUIDv7().toString();
-		URL preSignedUrl = s3Util.generatePreSignedOctetStreamUrl(objectKey);
+		URL preSignedUrl = s3Util.generatePreSignedPutUrl(objectKey, "application/octet-stream");
 		return new VideoFileUploadUrlResponse(objectKey, preSignedUrl);
 	}
 
@@ -49,7 +49,8 @@ public class VideoService {
 		Long videoId
 	) {
 		VideoModel videoModel = videoMapper.selectVideoByVideoId(videoId);
-		videoModel.getVideoS3Key();
+		URL preSignedUrl = s3Util.generatePreSignedGetUrl(videoModel.getVideoS3Key());
+		return new VideoFileStreamUrlResponse(preSignedUrl);
 	}
 
 	public void uploadVideoMetadata(
