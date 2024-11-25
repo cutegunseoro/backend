@@ -25,11 +25,11 @@ public class TravelController {
 	private final VideoService videoService;
 
 	@PostMapping
-	public ResponseEntity<Void> addTravel(Authentication authentication,
-		@RequestBody TravelAddRequest travelAddRequest) {
-		String publicId = authentication.getName();
-		travelAddRequest.setPublicId(publicId);
-		travelService.addTravel(travelAddRequest);
+	public ResponseEntity<Void> addTravel(
+		Authentication authentication,
+		@RequestBody TravelAddRequest travelAddRequest
+	) {
+		travelService.addTravel(authentication, travelAddRequest);
 		return ResponseEntity.ok().build();
 	}
 

@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TravelAddRequest {
-	private String publicId;
 	private String title;
 	private LocalDateTime startDateTime;
 	private LocalDateTime endDateTime;

@@ -2,6 +2,7 @@ package com.ssafy.travlog.api.service;
 
 import java.util.List;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import com.ssafy.travlog.api.dto.travel.TravelAddRequest;
@@ -22,9 +23,10 @@ public class TravelService {
 
 	private final MemberUtil memberUtil;
 
-	public void addTravel(TravelAddRequest travelAddRequest) {
+	public void addTravel(Authentication authentication, TravelAddRequest travelAddRequest) {
+		String publicId = authentication.getName();
 		TravelInsertModel travelInsertModel = TravelInsertModel.builder()
-			.memberId(memberUtil.getMemberIdByPublicId(travelAddRequest.getPublicId()))
+			.memberId(memberUtil.getMemberIdByPublicId(publicId))
 			.title(travelAddRequest.getTitle())
 			.startDateTime(travelAddRequest.getStartDateTime())
 			.endDateTime(travelAddRequest.getEndDateTime())
