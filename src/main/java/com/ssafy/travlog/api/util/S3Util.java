@@ -23,10 +23,11 @@ public class S3Util {
 	@Value("${aws.s3.link-expiration-minute}")
 	private int linkExpirationMinute;
 
-	public URL generatePreSignedUrl(String objectKey) {
+	public URL generatePreSignedUrl(String objectKey, String contentType) {
 		PutObjectRequest putObjectRequest = PutObjectRequest.builder()
 			.bucket(bucketName)
 			.key(objectKey)
+			.contentType(contentType)
 			.build();
 
 		PutObjectPresignRequest putObjectPresignRequest = PutObjectPresignRequest.builder()
