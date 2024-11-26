@@ -2,6 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.ssafy.travlog.api.mapper.TravelMapper">
+    <insert id="insertTravel" parameterType="TravelInsertModel">
+        INSERT INTO travel (member_id, title, area, start_date_time, end_date_time)
+        VALUES (#{memberId}, #{title}, #{area}, #{startDateTime}, #{endDateTime})
+    </insert>
+
     <select id="selectTravelByTravelId" resultType="TravelModel">
         SELECT *
         FROM travel
@@ -14,8 +19,11 @@
         WHERE member_id = #{memberId}
     </select>
 
-    <insert id="insertTravel" parameterType="TravelInsertModel">
-        INSERT INTO travel (member_id, title, area, start_date_time, end_date_time)
-        VALUES (#{memberId}, #{title}, #{area}, #{startDateTime}, #{endDateTime})
-    </insert>
+    <select id="selectLastTravelByMemberId" resultType="TravelModel">
+        SELECT *
+        FROM travel
+        WHERE member_id = #{memberId}
+        ORDER BY end_date_time DESC
+        LIMIT 1
+    </select>
 </mapper>
