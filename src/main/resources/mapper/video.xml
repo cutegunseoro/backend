@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.ssafy.travlog.api.mapper.VideoMapper">
-    <insert id="insertVideo" parameterType="VideoInsertModel">
+    <insert id="insertVideo" parameterType="VideoInsertModel" useGeneratedKeys="true" keyProperty="videoId">
         INSERT INTO video
         (member_id, travel_id, coordinates,
          video_s3_key, video_content_type,

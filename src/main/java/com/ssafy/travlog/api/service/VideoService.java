@@ -7,6 +7,8 @@ import com.ssafy.travlog.api.model.VideoModel;
 import com.ssafy.travlog.api.util.MemberUtil;
 import com.ssafy.travlog.api.util.S3PreSignUtil;
 import com.ssafy.travlog.api.util.UuidUtil;
+import com.ssafy.travlog.thumbnail_generator.ThumbnailTask;
+import com.ssafy.travlog.thumbnail_generator.ThumbnailTaskQueue;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
@@ -22,6 +24,8 @@ public class VideoService {
     private final S3PreSignUtil s3PreSignUtil;
     private final MemberUtil memberUtil;
     private final UuidUtil uuidUtil;
+
+    private final ThumbnailTaskQueue thumbnailTaskQueue;
 
     private final List<String> allowedContentTypes = List.of("video/webm", "video/mp4");
 
@@ -65,6 +69,7 @@ public class VideoService {
         if (result != 1) {
             throw new RuntimeException("Failed to insert video metadata");
         }
+        thumbnailTaskQueue.enqueue(new ThumbnailTask(videoInsertModel.getVideoId()));
     }
 
     public VideoMetadataResponse getVideoMetadata(Long videoId) {
