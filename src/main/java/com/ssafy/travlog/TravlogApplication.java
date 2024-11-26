@@ -1,4 +1,4 @@
-package com.ssafy.travlog.api;
+package com.ssafy.travlog;
 
 import io.github.cdimascio.dotenv.Dotenv;
 import org.springframework.boot.SpringApplication;
