@@ -30,11 +30,14 @@ public class MeService {
 		MemberModel memberModel = memberMapper.selectMemberByMemberId(memberId);
 		TravelModel travelModel = travelMapper.selectLastTravelByMemberId(memberId);
 
+		LocalDateTime now = LocalDateTime.now();
+
 		MeInfo meInfo = MeInfo.builder()
 			.publicId(publicId)
 			.displayName(memberModel.getDisplayName())
 			.bio(memberModel.getBio())
-			.currentTravelId(travelModel == null || travelModel.getEndDateTime().isBefore(LocalDateTime.now())
+			.currentTravelId(travelModel == null
+				|| travelModel.getStartDateTime().isAfter(now) || travelModel.getEndDateTime().isBefore(now)
 				? null : travelModel.getTravelId())
 			.build();
 		return new MeInfoResponse(meInfo);
