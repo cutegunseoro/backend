@@ -26,6 +26,7 @@ public class TravelService {
         TravelInsertModel travelInsertModel = TravelInsertModel.builder()
                 .memberId(memberUtil.getMemberIdByPublicId(publicId))
                 .title(travelAddRequest.getTitle())
+                .area(travelAddRequest.getArea())
                 .startDateTime(travelAddRequest.getStartDateTime())
                 .endDateTime(travelAddRequest.getEndDateTime())
                 .build();
@@ -55,6 +56,7 @@ public class TravelService {
                 .travelId(travelModel.getTravelId())
                 .publicId(memberUtil.getPublicIdByMemberId(travelModel.getMemberId()))
                 .title(travelModel.getTitle())
+                .area(travelModel.getArea())
                 .startDateTime(travelModel.getStartDateTime())
                 .endDateTime(travelModel.getEndDateTime())
                 .createdAt(travelModel.getCreatedAt())

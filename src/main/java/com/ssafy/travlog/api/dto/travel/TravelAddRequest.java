@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class TravelAddRequest {
     private String title;
+    private String area;
     private LocalDateTime startDateTime;
     private LocalDateTime endDateTime;
 }

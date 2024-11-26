@@ -15,6 +15,7 @@ public class TravelInfo {
     private Long travelId;
     private String publicId;
     private String title;
+    private String area;
     private LocalDateTime startDateTime;
     private LocalDateTime endDateTime;
     private LocalDateTime createdAt;

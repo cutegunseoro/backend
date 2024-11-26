@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 public class TravelInsertModel {
     private long memberId;
     private String title;
+    private String area;
     private LocalDateTime startDateTime;
     private LocalDateTime endDateTime;
 }
