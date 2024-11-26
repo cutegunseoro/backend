@@ -2,6 +2,7 @@ package com.ssafy.travlog.thumbnail_generator;
 
 import com.ssafy.travlog.api.mapper.VideoMapper;
 import com.ssafy.travlog.api.model.VideoModel;
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jcodec.api.FrameGrab;
@@ -26,6 +27,16 @@ public class ThumbnailGenerator {
 
     private final Path videoDir = Path.of(System.getProperty("user.dir"), "videos");
     private final Path thumbnailDir = Path.of(System.getProperty("user.dir"), "thumbnails");
+
+    @PostConstruct
+    public void init() {
+        if (!videoDir.toFile().exists()) {
+            videoDir.toFile().mkdirs();
+        }
+        if (!thumbnailDir.toFile().exists()) {
+            thumbnailDir.toFile().mkdirs();
+        }
+    }
 
     public void generateThumbnail(long videoId) {
         VideoModel videoModel = videoMapper.selectVideoByVideoId(videoId);
