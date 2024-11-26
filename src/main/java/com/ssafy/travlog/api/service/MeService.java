@@ -1,5 +1,7 @@
 package com.ssafy.travlog.api.service;
 
+import java.time.LocalDateTime;
+
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
@@ -32,7 +34,8 @@ public class MeService {
 			.publicId(publicId)
 			.displayName(memberModel.getDisplayName())
 			.bio(memberModel.getBio())
-			.currentTravelId(travelModel == null ? null : travelModel.getTravelId())
+			.currentTravelId(travelModel == null || travelModel.getEndDateTime().isBefore(LocalDateTime.now())
+				? null : travelModel.getTravelId())
 			.build();
 		return new MeInfoResponse(meInfo);
 	}
