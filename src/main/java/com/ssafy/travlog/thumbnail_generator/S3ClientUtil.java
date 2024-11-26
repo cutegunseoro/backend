@@ -1,5 +1,6 @@
 package com.ssafy.travlog.thumbnail_generator;
 
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -10,6 +11,7 @@ import software.amazon.awssdk.services.s3.model.GetObjectRequest;
 import software.amazon.awssdk.services.s3.model.GetObjectResponse;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -20,6 +22,7 @@ import java.nio.file.Path;
 public class S3ClientUtil {
     private final S3Client s3Client;
 
+    @Getter
     @Value("${aws.s3.bucket-name}")
     private String bucketName;
 
@@ -36,8 +39,9 @@ public class S3ClientUtil {
 
             // Save file to destinationPath
             File outputFile = destinationPath.toFile();
-            try (FileOutputStream fos = new FileOutputStream(outputFile)) {
-                fos.write(s3ObjectBytes.asByteArray());
+            try (FileOutputStream fos = new FileOutputStream(outputFile);
+                 BufferedOutputStream bos = new BufferedOutputStream(fos)) {
+                bos.write(s3ObjectBytes.asByteArray());
             }
         } catch (IOException e) {
             throw new RuntimeException("Error while writing the file locally", e);
@@ -53,5 +57,9 @@ public class S3ClientUtil {
 
         // Upload file to S3
         s3Client.putObject(putObjectRequest, RequestBody.fromFile(sourcePath));
+    }
+
+    public String getPublicUrl(String region, String bucketName, String key) {
+        return String.format("https://%s.s3.%s.amazonaws.com/%s", bucketName, region, key);
     }
 }
