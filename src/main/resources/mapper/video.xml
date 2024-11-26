@@ -27,7 +27,8 @@
                video_content_type,
                thumbnail_s3_url,
                title,
-               description
+               description,
+               created_at
         FROM video
         WHERE video_id = #{video_id}
     </select>
@@ -41,7 +42,8 @@
                video_content_type,
                thumbnail_s3_url,
                title,
-               description
+               description,
+               created_at
         FROM video
         WHERE travel_id = #{travel_id}
     </select>
@@ -55,7 +57,8 @@
                video_content_type,
                thumbnail_s3_url,
                title,
-               description
+               description,
+               created_at
         FROM video
         WHERE member_id = #{member_id}
     </select>
@@ -70,6 +73,7 @@
                thumbnail_s3_url,
                title,
                description,
+               created_at,
                ST_Distance(coordinates, ST_GeomFromText(#{coordinates}, 4326)) AS distance
         FROM video
         WHERE ST_Distance(coordinates, ST_GeomFromText(#{coordinates}, 4326)) &lt;= #{distance}
