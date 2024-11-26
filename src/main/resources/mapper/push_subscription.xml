@@ -3,8 +3,8 @@
 
 <mapper namespace="com.ssafy.travlog.api.mapper.PushSubscriptionMapper">
     <insert id="insertPushSubscription" parameterType="PushSubscriptionInsertModel">
-        INSERT INTO push_subscription(member_id, endpoint, p256dh, auth)
-        VALUES (#{memberId}, #{endpoint}, #{p2556dh}, #{auth})
+        INSERT INTO push_subscription(member_id, token)
+        VALUES (#{memberId}, #{token})
     </insert>
 
     <delete id="deletePushSubscription">
@@ -19,7 +19,7 @@
         WHERE push_subscription_id = #{pushSubscriptionId}
     </select>
 
-    <select id="selectPushSubscriptionByMemberId" resultType="PushSubscriptionModel">
+    <select id="selectPushSubscriptionsByMemberId" resultType="PushSubscriptionModel">
         SELECT *
         FROM push_subscription
         WHERE member_id = #{memberId}

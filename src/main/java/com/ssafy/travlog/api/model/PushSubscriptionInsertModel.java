@@ -10,8 +10,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class PushSubscriptionInsertModel {
-    private Long memberId;
-    private String endpoint;
-    private String p256dh;
-    private String auth;
+	private Long memberId;
+	private String token;
 }

@@ -39,3 +39,4 @@ out/
 ### Secrets ###
 /.env
 /credentials
+firebase-service-account.json
