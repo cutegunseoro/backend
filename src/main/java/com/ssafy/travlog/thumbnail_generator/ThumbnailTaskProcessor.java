@@ -1,7 +1,6 @@
 package com.ssafy.travlog.thumbnail_generator;
 
 import jakarta.annotation.PostConstruct;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.task.TaskExecutor;
@@ -9,12 +8,20 @@ import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
-@RequiredArgsConstructor
 public class ThumbnailTaskProcessor {
     private final ThumbnailTaskQueue taskQueue;
-    @Qualifier("thumbnailTaskExecutor")
     private final TaskExecutor taskExecutor;
     private final ThumbnailGenerator thumbnailGenerator;
+
+    public ThumbnailTaskProcessor(
+            ThumbnailTaskQueue taskQueue,
+            @Qualifier("thumbnailTaskExecutor") TaskExecutor taskExecutor,
+            ThumbnailGenerator thumbnailGenerator
+    ) {
+        this.taskQueue = taskQueue;
+        this.taskExecutor = taskExecutor;
+        this.thumbnailGenerator = thumbnailGenerator;
+    }
 
     @PostConstruct
     public void startProcessing() {
