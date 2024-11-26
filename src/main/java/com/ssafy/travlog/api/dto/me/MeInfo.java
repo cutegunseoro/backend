@@ -1,5 +1,7 @@
 package com.ssafy.travlog.api.dto.me;
 
+import java.time.LocalDateTime;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,4 +16,5 @@ public class MeInfo {
 	private String displayName;
 	private String bio;
 	private Long currentTravelId;
+	private LocalDateTime currentTravelEndDateTime;
 }

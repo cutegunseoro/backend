@@ -32,13 +32,15 @@ public class MeService {
 
 		LocalDateTime now = LocalDateTime.now();
 
+		boolean isOnTravel = travelModel == null
+			|| travelModel.getStartDateTime().isAfter(now) || travelModel.getEndDateTime().isBefore(now);
+
 		MeInfo meInfo = MeInfo.builder()
 			.publicId(publicId)
 			.displayName(memberModel.getDisplayName())
 			.bio(memberModel.getBio())
-			.currentTravelId(travelModel == null
-				|| travelModel.getStartDateTime().isAfter(now) || travelModel.getEndDateTime().isBefore(now)
-				? null : travelModel.getTravelId())
+			.currentTravelId(isOnTravel ? null : travelModel.getTravelId())
+			.currentTravelEndDateTime(isOnTravel ? null : travelModel.getEndDateTime())
 			.build();
 		return new MeInfoResponse(meInfo);
 	}
