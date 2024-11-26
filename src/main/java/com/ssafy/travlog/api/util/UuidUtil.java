@@ -1,14 +1,13 @@
 package com.ssafy.travlog.api.util;
 
-import java.util.UUID;
-
+import com.github.f4b6a3.uuid.UuidCreator;
 import org.springframework.stereotype.Component;
 
-import com.github.f4b6a3.uuid.UuidCreator;
+import java.util.UUID;
 
 @Component
 public class UuidUtil {
-	public UUID getUUIDv7() {
-		return UuidCreator.getTimeOrderedEpoch();
-	}
+    public UUID getUUIDv7() {
+        return UuidCreator.getTimeOrderedEpoch();
+    }
 }

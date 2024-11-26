@@ -8,5 +8,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TravelInfoResponse {
-	TravelInfo travel;
+    TravelInfo travel;
 }

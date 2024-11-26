@@ -10,35 +10,35 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    # Step 1: Checkout repository
-    - name: Checkout Code
-      uses: actions/checkout@v3
+      # Step 1: Checkout repository
+      - name: Checkout Code
+        uses: actions/checkout@v3
 
-    # Step 2: Set up Java
-    - name: Set up JDK
-      uses: actions/setup-java@v3
-      with:
-        java-version: '17'
-        distribution: 'temurin'
+      # Step 2: Set up Java
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
 
-    # Step 3: Build the application
-    - name: Build with Gradle
-      run: |
-        ./gradlew clean build
+      # Step 3: Build the application
+      - name: Build with Gradle
+        run: |
+          ./gradlew clean build
 
-    # Step 4: Deploy to EC2
-    - name: Deploy to EC2
-      uses: appleboy/ssh-action@v0.1.8
-      with:
-        host: ${{ secrets.EC2_HOST }}
-        username: ${{ secrets.EC2_USER }}
-        key: ${{ secrets.EC2_KEY }}
-        script: |
-          # Stop existing Spring Boot application
-          pkill -f "java -jar"
-
-          # Copy new jar to EC2
-          scp build/libs/*.jar ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }}:/home/${{ secrets.EC2_USER }}/app.jar
-
-          # Start the new application
-          nohup java -jar /home/${{ secrets.EC2_USER }}/app.jar > /dev/null 2>&1 &
+      # Step 4: Deploy to EC2
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@v0.1.8
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_KEY }}
+          script: |
+            # Stop existing Spring Boot application
+            pkill -f "java -jar"
+            
+            # Copy new jar to EC2
+            scp build/libs/*.jar ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }}:/home/${{ secrets.EC2_USER }}/app.jar
+            
+            # Start the new application
+            nohup java -jar /home/${{ secrets.EC2_USER }}/app.jar > /dev/null 2>&1 &
